@@ -1,13 +1,14 @@
+"use client";
+
 import { Button } from "@wowjob/client";
 import Link from "next/link";
 
-export default function Home() {
+export default function Test() {
   return (
     <main>
       <Button>button</Button>
-      <Button>button</Button>
       <div>
-        <Link href="test">test</Link>
+        <Link href="/">home</Link>
       </div>
     </main>
   );
