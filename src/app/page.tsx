@@ -5,13 +5,14 @@ import {
   writeOneToFire,
 } from "../server/firebase.server";
 import { revalidatePath } from "next/cache";
+import type { NextPage } from "next";
 
 const SH1 = styled.h1`
   color: red;
   background-color: lightblue;
 `;
 
-export const deleteFromDb = async (formData: FormData): string => {
+const deleteFromDb = async (formData: FormData) => {
   "use server";
   const { id } = Object.fromEntries(formData as any);
   await deleteOneFromFire("test", id);
@@ -19,13 +20,13 @@ export const deleteFromDb = async (formData: FormData): string => {
   revalidatePath("/");
 };
 
-export const readFromDb = async () => {
+const readFromDb = async () => {
   "use server";
 
   return await readManyFromFire("test");
 };
 
-export const saveToDb = async (formData: FormData): string => {
+const saveToDb = async (formData: FormData) => {
   "use server";
   const { name, age } = Object.fromEntries(formData as any);
   await writeOneToFire("test", { name, age });
@@ -33,12 +34,14 @@ export const saveToDb = async (formData: FormData): string => {
   revalidatePath("/");
 };
 
+type TList = {
+  name: string;
+  age: string;
+  docid: string;
+}[];
+
 export default async function Index() {
-  const list: {
-    name: string;
-    age: string;
-    docid: string;
-  }[] = await readFromDb();
+  const list = (await readFromDb()) as TList;
   return (
     <div>
       <SH1>blog</SH1>
