@@ -5,6 +5,7 @@ const withLinaria = require("next-with-linaria");
 const config = {
   experimental: {
     appDir: true,
+    serverActions: true,
   },
 };
 module.exports = withLinaria(config);
